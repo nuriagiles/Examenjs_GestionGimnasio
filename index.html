@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas del Gimnasio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div>
+            <h1>Gestión de Reservas del Gimnasio</h1>
+            <p class="subtitle">Panel de control de actividades, reservas y carga horaria</p>
+        </div>
+        <button type="button" id="toggle-actividades-btn" class="btn btn-secondary">Mostrar/Ocultar Lista de Actividades</button>
+    </header>
+    <main id="main-layout" class="layout">
+        <!--Zona izquierda: Tabla de actividades-->
+        <section id="panel-actividades" class="panel panel-actividades" aria-label="Lista de actividades">
+            <h2>Lista de actividades</h2>
+            <div class="table-responsive">
+                <table class="tabla-actividades">
+                    <thead>
+                        <tr>
+                            <th>Actividad</th>
+                            <th>Duracion(min)</th>
+                            <th>Intensidad</th>
+                            <th>Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="actividades-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!--Zona derecha: Formulario de reservas y tarjetas de franjas-->
+        <section id="panel-reservas" class="panel panel-reservas" aria-label="Reservas y franjas horarias">
+            <h2>Reservas y franjas horarias</h2>
+            <form id="reserva-form" class="reserva-form">
+                <div class="campo">
+                    <label for="select-actividad">Actividad</label>
+                    <select name="actividad" id="select-actividad" required></select>
+                </div>
+                <div class="campo">
+                    <label for="select-personas">Número de personas</label>
+                    <select name="personas" id="select-personas" required>
+                        <option value="1">1 persona</option>
+                        <option value="2">2 personas</option>
+                        <option value="3">3 personas</option>
+                        <option value="4">4 personas</option>
+                        <option value="5">5 personas</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="select-franja">Franja horaria</label>
+                    <select name="franja" id="select-franja" required>
+                        <option value="09:00">09:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="19:00">19:00</option>
+                    </select>
+                </div>
+
+                <div class="campo campo-accion">
+                    <button type="submit" class="btn btn-primary">Registrar Reserva</button>
+                </div>
+            </form>
+
+
+            <div id="franjas-grid" class="franjas-grid" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <!--Ventana modal de detalles-->
+    <div id="modal-backdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-titulo">Detalles de reservas para las HH:MM</h3>
+                <button type="button" id="cerrar-modal-btn" class="btn-close" aria-label="Cerrar ventana modal">X</button>                
+            </div>
+            <div id="modal-body" class="modal-body">
+                <p id="modal-vacio" class="modal-vacio hidden">Sin reservas</p>
+                <div id="modal-tabla-contenedor" class="table-responsive">
+                    <table class="tabla-modal">
+                        <thead>
+                            <tr>
+                                <th>Actividad</th>
+                                <th>Personas</th>
+                                <th>Duracion(min)</th>
+                                <th>Carga de minutos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modal-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer modal-footer-con-total">
+                <div class="modal-total-pie">
+                    <span>Total carga de minutos:</span>
+                    <strong id="modal-total-minutos">0 minutos</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
